@@ -36,25 +36,41 @@ for (team in TEAMS) {
 winRatioByTeam <- sort(unlist(winRatioByTeam), decreasing=TRUE);
 barplot(winRatioByTeam[1:5], names=names(winRatioByTeam)[1:5], main="Top 5 najboljših ekip po razmerju zmag");
 
-# # graf odvisnosti med stevilom prostih dni in razmerju uspesnih metov ekipe
-
-# homeShotSuccessRatio = md$homeFGM / md$homeFGA;
-# awayShotSuccessRatio = md$awayFGM / md$awayFGA;
-# totalShotSuccessRatio = append(homeShotSuccessRatio, awayShotSuccessRatio);
-
-# daysOff = append(md$homeDayOff, md$awayDayOff);
-
-# plot(totalShotSuccessRatio,daysOff, main="Razmerje uspešnih metov za tri pike domačih ekip odvisno od števila prostih dni", xlab="Število prostih dni", ylab="Razmerje uspešnih metov za tri pike");
-
-
-# # graf odvisnosti med stevilom prostih dni in razmerju uspesnih prostih metov ekipe
-
 homeFreeShotSuccessRatio = md$homeFTM / md$homeFTA;
 awayFreeShotSuccessRatio = md$awayFTM / md$awayFTA;
 totalFreeShotSuccessRatio = append(homeFreeShotSuccessRatio, awayFreeShotSuccessRatio);
 daysOff = append(md$homeDayOff, md$awayDayOff);
 plot(totalFreeShotSuccessRatio,daysOff, main="Razmerje uspešnih prostih metov odvisno od števila prostih dni", xlab="Število prostih dni", ylab="Razmerje uspešnih metov za tri pike");
 
+
+
+md <- md[order(md$gmDate),]
+
+train <- md[1:round(0.7*nrow(md)),]
+test <- md[-(1:round(0.7*nrow(md))),]
+
+# Damo namesto absolutno stevilo metov v procente uspesnih?
+# convert successful points to percentages
+train$homePTS <- train$homePTS / train$homeFGA;
+train$homeFGA <- NULL;
+train$awayPTS <- train$awayPTS / train$awayFGA;
+train$awayFGA <- NULL;
+# convert successful free throws to percentages
+train$homeFTM <- train$homeFTM / train$homeFTA;
+train$homeFTA <- NULL;
+train$awayFTM <- train$awayFTM / train$awayFTA;
+train$awayFTA <- NULL;
+# convert successful three pointers to percentages
+train$home3PM <- train$home3PM / train$home3PA;
+train$home3PA <- NULL;
+train$away3PM <- train$away3PM / train$away3PA;
+train$away3PA <- NULL;
+# convert successful two pointers to percentages
+train$home2PM <- train$home2PM / train$home2PA;
+train$home2PA <- NULL;
+train$away2PM <- train$away2PM / train$away2PA;
+train$away2PA <- NULL;
+summary(train)
 
 
 
