@@ -1,8 +1,11 @@
 
 
+set.seed(0)
 
 setwd("C:/Users/Gal/Documents/FRI/UI/Seminarska/")
 md <- read.table(file="nbadata.txt", sep=",", header=TRUE)
+
+md <- md[order(md$gmDate),];
 
 
 SEASONS = unique(md$gmSeason);
@@ -44,33 +47,12 @@ plot(totalFreeShotSuccessRatio,daysOff, main="Razmerje uspešnih prostih metov o
 
 
 
-md <- md[order(md$gmDate),]
 
 train <- md[1:round(0.7*nrow(md)),]
 test <- md[-(1:round(0.7*nrow(md))),]
 
-# Damo namesto absolutno stevilo metov v procente uspesnih?
-# convert successful points to percentages
-train$homePTS <- train$homePTS / train$homeFGA;
-train$homeFGA <- NULL;
-train$awayPTS <- train$awayPTS / train$awayFGA;
-train$awayFGA <- NULL;
-# convert successful free throws to percentages
-train$homeFTM <- train$homeFTM / train$homeFTA;
-train$homeFTA <- NULL;
-train$awayFTM <- train$awayFTM / train$awayFTA;
-train$awayFTA <- NULL;
-# convert successful three pointers to percentages
-train$home3PM <- train$home3PM / train$home3PA;
-train$home3PA <- NULL;
-train$away3PM <- train$away3PM / train$away3PA;
-train$away3PA <- NULL;
-# convert successful two pointers to percentages
-train$home2PM <- train$home2PM / train$home2PA;
-train$home2PA <- NULL;
-train$away2PM <- train$away2PM / train$away2PA;
-train$away2PA <- NULL;
-summary(train)
+# poglej tukej v commit PROCENTI ce bi po procentih
+
 
 
 
