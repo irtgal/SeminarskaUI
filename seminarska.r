@@ -48,10 +48,26 @@ plot(totalFreeShotSuccessRatio,daysOff, main="Razmerje uspešnih prostih metov o
 
 
 
+md$isHomeWinner <- md$homePTS > md$awayPTS;
 train <- md[1:round(0.7*nrow(md)),]
 test <- md[-(1:round(0.7*nrow(md))),]
 
 # poglej tukej v commit PROCENTI ce bi po procentih
+
+
+
+# ODLOCITVENO DREVO
+library(rpart)
+dt <- rpart(isHomeWinner ~ ., data = train)
+
+library(rpart.plot)
+rpart.plot(dt)
+
+predicted <- predict(dt, test, type="class")
+CA(observed, predicted)
+
+predMat <- predict(dt, test, type = "prob")
+brier.score(obsMat, predMat)
 
 
 
