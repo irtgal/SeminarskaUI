@@ -115,10 +115,14 @@ structureTeamData <- function(games, position)
     teamStatistics[[attr(position, "PTSEx")]] <- mean(games[[attr(position, "PTSEx")]]);
     
     # percetanges
-    teamStatistics[[attr(position, "FGR")]] <- mean(games[[attr(position,"FGM")]]) / mean(games[[attr(position, "FGA")]]);
-    teamStatistics[[attr(position, "3PR")]] <- mean(games[[attr(position,"3PM")]]) / mean(games[[attr(position, "3PA")]]);
-    teamStatistics[[attr(position, "2PR")]] <- mean(games[[attr(position,"2PM")]]) / mean(games[[attr(position, "2PA")]]);
-    teamStatistics[[attr(position, "FTR")]] <- mean(games[[attr(position,"FTM")]]) / mean(games[[attr(position, "FTA")]]);
+    teamStatistics[[attr(position, "FGM")]] <- mean(games[[attr(position, "FGM")]]);
+    teamStatistics[[attr(position, "FGA")]] <- mean(games[[attr(position, "FGA")]]);
+    teamStatistics[[attr(position, "3PA")]] <- mean(games[[attr(position, "3PA")]]);
+    teamStatistics[[attr(position, "3PM")]] <- mean(games[[attr(position, "3PM")]]);
+    teamStatistics[[attr(position, "2PM")]] <- mean(games[[attr(position, "2PM")]]);
+    teamStatistics[[attr(position, "2PA")]] <- mean(games[[attr(position, "2PA")]]);
+    teamStatistics[[attr(position, "FTM")]] <- mean(games[[attr(position, "FTM")]]);
+    teamStatistics[[attr(position, "FTA")]] <- mean(games[[attr(position, "FTA")]]);
     return(teamStatistics);
 }
 
