@@ -97,7 +97,7 @@ TEAMS = unique(c(md$awayAbbr, md$homeAbbr))
 
 structureTeamData <- function(games, position)
 {
-    teamStatistics <- list();
+    teamStatistics <- list();    
     teamStatistics[[attr(position, "PTS")]] <- mean(games[[attr(position, "PTS")]]);
     teamStatistics[[attr(position, "AST")]] <- mean(games[[attr(position, "AST")]]);
     teamStatistics[[attr(position, "TO")]] <- mean(games[[attr(position, "TO")]]);
@@ -122,7 +122,7 @@ structureTeamData <- function(games, position)
     return(teamStatistics);
 }
 
-md <- md[1:200,];
+md <- md[1:300,];
 # strukturiraj podatke za ucenje
 structuredData <- data.frame();
 for (i in 1:nrow(md)) {
@@ -146,8 +146,8 @@ for (i in 1:nrow(md)) {
     structuredData <- rbind(structuredData, structuredGameData);
 }
 
-
-
+structuredData$isHomeWinner <- as.factor(structuredData$isHomeWinner);
+informationGain <- sort(attrEval(isHomeWinner ~ ., structuredData, "InfGain"), decreasing = TRUE)
 
 
 HOME_TEAM_TO_PREDICT <- "GSW";
